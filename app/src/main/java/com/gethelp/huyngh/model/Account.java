@@ -6,6 +6,7 @@ public class Account {
     Character password;
     String firstName;
     String lastName;
+    String address;
     Boolean Gender;
     String Mail;
 
@@ -65,15 +66,24 @@ public class Account {
         Mail = mail;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public Account() {
     }
 
-    public Account(String accountId, Character phoneNumber, Character password, String firstName, String lastName, Boolean gender, String mail) {
+    public Account(String accountId, Character phoneNumber, Character password, String firstName, String lastName, String address, Boolean gender, String mail) {
         this.accountId = accountId;
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.address = address;
         Gender = gender;
         Mail = mail;
     }
