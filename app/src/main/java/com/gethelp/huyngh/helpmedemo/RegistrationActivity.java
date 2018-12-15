@@ -10,7 +10,6 @@ public class RegistrationActivity extends AppCompatActivity {
     EditText edtFirstName, edtLastName, edtAddress, edtEmail;
     EditText edtPhoneNumber, edtPassword;
     RadioButton rdbGender;
-    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
