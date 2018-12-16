@@ -17,11 +17,12 @@ import java.util.List;
 public class RegistrationActivity extends AppCompatActivity {
 
     EditText edtFirstName, edtLastName, edtAddress, edtEmail;
-    EditText edtPhoneNumber, edtPassword;
-    RadioButton rdbGender;
+    EditText edtPhoneNumber, edtPassword, edtComfirmPassword;
+    RadioButton rdbGenderMale, rdbGenderFemale;
     Button btnSignUp;
 
     FirebaseAuth firebaseAuth;
+    FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseAccount;
 
     List<Account> accountList;
@@ -33,18 +34,23 @@ public class RegistrationActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_registration);
 
-        databaseAccount = FirebaseDatabase.getInstance().getReference("account");
+        //Thiết lâp firebase
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseAccount = firebaseDatabase.getReference("Account");
 
         //Tạo một nút account mới, trả về giá trị khóa duy nhất
-        //String accountId = databaseAccount.push().getKey();
+        String accountId = databaseAccount.push().getKey();
 
-        //btnSignUp = (Button) findViewById();
-        //rdbGender = (RadioButton) findViewById();
-        //edtFirstName = (EditText) findViewById(R.id.edtFirstName);
-        //edtLastName = (EditText) findViewById();
-        //edtAddress = (EditText) findViewById();
-        //edtEmail = (EditText) findViewById();
-        //edtPhoneNumber = (EditText) findViewById();
-        //edtPassword = (EditText) findViewById();
+        btnSignUp = (Button) findViewById(R.id.btnSignUp);
+        rdbGenderMale = (RadioButton) findViewById(R.id.rdbMale);
+        rdbGenderFemale = (RadioButton) findViewById(R.id.rdbFemale);
+        edtFirstName = (EditText) findViewById(R.id.edtFirstName);
+        edtLastName = (EditText) findViewById(R.id.edtLastName);
+        edtAddress = (EditText) findViewById(R.id.edtAddress);
+        edtEmail = (EditText) findViewById(R.id.edtEmail);
+        edtPhoneNumber = (EditText) findViewById(R.id.edtPhoneNumber);
+        edtPassword = (EditText) findViewById(R.id.edtPassword);
+        edtComfirmPassword = (EditText) findViewById(R.id.edtConfirmPassword);
     }
 }
