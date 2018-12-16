@@ -1,7 +1,6 @@
 package com.gethelp.huyngh.model;
 
 public class Account {
-    String accountId;
     Character phoneNumber;
     Character password;
     String firstName;
@@ -9,14 +8,6 @@ public class Account {
     String address;
     Boolean Gender;
     String Mail;
-
-    public String getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
-    }
 
     public Character getPhoneNumber() {
         return phoneNumber;
@@ -77,8 +68,7 @@ public class Account {
     public Account() {
     }
 
-    public Account(String accountId, Character phoneNumber, Character password, String firstName, String lastName, String address, Boolean gender, String mail) {
-        this.accountId = accountId;
+    public Account(Character phoneNumber, Character password, String firstName, String lastName, String address, Boolean gender, String mail) {
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.firstName = firstName;
