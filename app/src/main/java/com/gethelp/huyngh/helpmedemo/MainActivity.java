@@ -1,5 +1,9 @@
 package com.gethelp.huyngh.helpmedemo;
 
+import android.app.ActionBar;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -11,6 +15,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import android.view.Window;
 
+import java.security.cert.Certificate;
+
 
 public class MainActivity extends BaseActivity {
     private GoogleMap mGoogleMap;
@@ -18,7 +24,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         setContentView(R.layout.activity_main);
         initView();
     }
@@ -38,9 +44,9 @@ public class MainActivity extends BaseActivity {
                         mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
                     }
                 });
-                LatLng frmVietNam=new LatLng(21.0166458, 105.7841248);
-                mGoogleMap.addMarker(new MarkerOptions().position(frmVietNam).title("Fregment VietNam"));
-                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(frmVietNam,18));
+                    LatLng frmLastlocation = new LatLng(21.0166458, 105.7841248);
+                    mGoogleMap.addMarker(new MarkerOptions().position(frmLastlocation).title("I'm Here"));
+                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(frmLastlocation, 18));
             }
         });
     }
