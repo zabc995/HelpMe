@@ -1,27 +1,27 @@
 package com.gethelp.huyngh.model;
 
 public class Account {
-    Character phoneNumber;
-    Character password;
+    String phoneNumber;
+    String password;
     String firstName;
     String lastName;
     String address;
     Boolean Gender;
     String Mail;
 
-    public Character getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Character phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    public Character getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(Character password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -68,7 +68,7 @@ public class Account {
     public Account() {
     }
 
-    public Account(Character phoneNumber, Character password, String firstName, String lastName, String address, Boolean gender, String mail) {
+    public Account(String phoneNumber, String password, String firstName, String lastName, String address, Boolean gender, String mail) {
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.firstName = firstName;
