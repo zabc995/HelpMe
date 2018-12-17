@@ -37,7 +37,6 @@ public class RegistrationActivity extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseAccount;
 
-    List<Account> accountList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,26 +46,26 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
 
         //Tạo một nút account mới, trả về giá trị khóa duy nhất
-        String accountId = databaseAccount.push().getKey();
+        //String accountId = databaseAccount.push().getKey();
 
-
+        //Thiết lập Button Sign
+        btnSignUp = (Button) findViewById(R.id.btnSignUp);
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                handleSignUp();
             }
         });
     }
 
-    public void handleSignUp(View view) {
+    public void handleSignUp() {
         //Thiết lập dialog
         final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle("S I G N U P");
-        dialog.setMessage("Please use email to register");
+        dialog.setTitle("A C E P T - S I G N U P");
+        dialog.setMessage("Email will be use to sign in");
 
         //Thiết lập các view control
-        btnSignUp = (Button) findViewById(R.id.btnSignUp);
         rdbGenderMale = (RadioButton) findViewById(R.id.rdbMale);
         rdbGenderFemale = (RadioButton) findViewById(R.id.rdbFemale);
         edtFirstName = (EditText) findViewById(R.id.edtFirstName);
@@ -80,14 +79,14 @@ public class RegistrationActivity extends AppCompatActivity {
 
         //Lấy Gender
         final Boolean Gender;
-        if(rdbGenderFemale.isChecked() == true & rdbGenderMale.isChecked() == false)
+        if(rdbGenderFemale.isChecked() == true && rdbGenderMale.isChecked() == false)
             Gender = false;
         else
             Gender = true;
 
 
         //Thiết lập Button
-        dialog.setPositiveButton("+", new DialogInterface.OnClickListener() {
+        dialog.setPositiveButton("ACCEPT", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
                 dialogInterface.dismiss();
@@ -139,7 +138,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                 account.setGender(Gender);
 
                                 //Dùng email làm key
-                                databaseAccount.child(firebaseAuth.getCurrentUser().getUid())
+                                databaseAccount.child(account.getMail())
                                         .setValue(account)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
@@ -166,5 +165,13 @@ public class RegistrationActivity extends AppCompatActivity {
                         });
             }
         });
+        dialog.setNegativeButton("CANCLE", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int which) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 }
