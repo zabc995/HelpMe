@@ -36,7 +36,7 @@ public class MainActivity extends BaseActivity {
         drawerLayout=findViewById(R.id.activity_main);
         drawerToggle=new ActionBarDrawerToggle(this,drawerLayout,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(drawerToggle);
-        
+
 
         initView();
     }
