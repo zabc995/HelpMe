@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.gethelp.huyngh.model.Account;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,6 +30,7 @@ public class RegistrationActivity extends AppCompatActivity {
     EditText edtFirstName, edtLastName, edtAddress, edtEmail;
     EditText edtPhoneNumber, edtPassword, edtComfirmPassword;
     RadioButton rdbGenderMale, rdbGenderFemale;
+    RadioGroup rdgGender;
     Button btnSignUp;
 
     LinearLayout regisLayout;
@@ -44,9 +46,6 @@ public class RegistrationActivity extends AppCompatActivity {
         actionBar.setTitle("Registration");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_registration);
-
-        //Tạo một nút account mới, trả về giá trị khóa duy nhất
-        //String accountId = databaseAccount.push().getKey();
 
         //Thiết lập Button Sign
         btnSignUp = (Button) findViewById(R.id.btnSignUp);
@@ -68,6 +67,7 @@ public class RegistrationActivity extends AppCompatActivity {
         //Thiết lập các view control
         rdbGenderMale = (RadioButton) findViewById(R.id.rdbMale);
         rdbGenderFemale = (RadioButton) findViewById(R.id.rdbFemale);
+        rdgGender = (RadioGroup) findViewById(R.id.rdgGender);
         edtFirstName = (EditText) findViewById(R.id.edtFirstName);
         edtLastName = (EditText) findViewById(R.id.edtLastName);
         edtAddress = (EditText) findViewById(R.id.edtAddress);
@@ -76,14 +76,6 @@ public class RegistrationActivity extends AppCompatActivity {
         edtPassword = (EditText) findViewById(R.id.edtPassword);
         edtComfirmPassword = (EditText) findViewById(R.id.edtConfirmPassword);
         regisLayout = (LinearLayout) findViewById(R.id.regisLayout);
-
-        //Lấy Gender
-        final Boolean Gender;
-        if(rdbGenderFemale.isChecked() == true && rdbGenderMale.isChecked() == false)
-            Gender = false;
-        else
-            Gender = true;
-
 
         //Thiết lập Button
         dialog.setPositiveButton("ACCEPT", new DialogInterface.OnClickListener() {
@@ -135,10 +127,16 @@ public class RegistrationActivity extends AppCompatActivity {
                                 account.setLastName(edtLastName.getText().toString());
                                 account.setAddress(edtAddress.getText().toString());
                                 account.setPhoneNumber(edtPhoneNumber.getText().toString());
-                                account.setGender(Gender);
+                                //Lấy Gender
+                                if(rdbGenderFemale.isChecked()){
+                                    account.setGender(false);
+                                }
+                                if(rdbGenderMale.isChecked()){
+                                    account.setGender(true);
+                                }
 
                                 //Dùng email làm key
-                                databaseAccount.child(account.getMail())
+                                databaseAccount.child(firebaseAuth.getCurrentUser().getUid())
                                         .setValue(account)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
