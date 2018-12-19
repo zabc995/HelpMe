@@ -2,11 +2,14 @@ package com.gethelp.huyngh.helpmedemo;
 
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.Manifest;
@@ -36,6 +39,7 @@ import java.security.cert.Certificate;
 public class MainActivity extends BaseActivity {
     private GoogleMap mGoogleMap;
 
+    NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
@@ -46,10 +50,47 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Thiết lập Controls
+        navigationView = (NavigationView) findViewById(R.id.mnuNavigation);
         drawerLayout=(DrawerLayout) findViewById(R.id.activity_main);
         drawerToggle=new ActionBarDrawerToggle(this,drawerLayout,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(drawerToggle);
+        //
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                Intent intent;
+                switch (menuItem.getItemId()){
+                    case R.id.mit_edit_profile:
+                        menuItem.setChecked(true);
+                        intent = new Intent(MainActivity.this,EditProfileActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.mit_notification:
+                        break;
+                    case R.id.mit_languages:
+                        break;
+                    case R.id.mit_location:
+                        break;
+                    case R.id.mit_payment:
+                        break;
+                    case R.id.mit_log_out:
+                        intent = new Intent(MainActivity.this, LoginActivity.class)
+                                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        finish();
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        menuItem.setChecked(true);
+                        break;
+                    case R.id.mit_about:
+                        break;
+                }
 
+                return true;
+            }
+        });
+        //
         checkFineLocationPermission();
         checkCoarseLocationPermission();
         initView();
