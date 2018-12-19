@@ -21,6 +21,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.gethelp.huyngh.model.Account;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -29,9 +30,20 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.Window;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.security.cert.Certificate;
 
@@ -45,17 +57,38 @@ public class MainActivity extends BaseActivity {
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     LocationManager locationManager;
 
+    private static final String TAG = "EDIT";
+    FirebaseAuth firebaseAuth;
+    FirebaseAuth.AuthStateListener authStateListener;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseAccount;
+    String userUid;
+
+    TextView txvActivitySlidebarUserName, txvActivitySlidebarEmail;
+    LinearLayout navHeaderSlidebar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Thiết lập firebase
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseAccount = firebaseDatabase.getReference("Account");
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        userUid = user.getUid();
+
         //Thiết lập Controls
+        navHeaderSlidebar = findViewById(R.id.nav_header_slidebar);
+        txvActivitySlidebarEmail = findViewById(R.id.activity_slidebar_email);
+        txvActivitySlidebarUserName = findViewById(R.id.activity_slidebar_user_name);
         navigationView = (NavigationView) findViewById(R.id.mnuNavigation);
         drawerLayout=(DrawerLayout) findViewById(R.id.activity_main);
         drawerToggle=new ActionBarDrawerToggle(this,drawerLayout,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(drawerToggle);
-        //
+
+        //Thiết lập Navigation
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -95,7 +128,47 @@ public class MainActivity extends BaseActivity {
         checkCoarseLocationPermission();
         initView();
     }
-  
+
+
+    /*@Override
+    protected void onStart() {
+        super.onStart();
+        //Xử lý dữ liệu firebase
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if( user != null){
+                    //User đã đăng nhập
+                    Log.d(TAG,"Singed In:"+ user.getUid());
+                    toastMessage("Success with"+ user.getEmail());
+                }
+                else {
+
+                }
+            }
+        };
+        databaseAccount.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Account account = new Account();
+                account.setFirstName(dataSnapshot.child(userUid).getValue(Account.class).getFirstName());
+                account.setLastName(dataSnapshot.child(userUid).getValue(Account.class).getLastName());
+                account.setMail(dataSnapshot.child(userUid).getValue(Account.class).getMail());
+
+                if(account != null) {
+                    String Name = account.getFirstName()+" "+account.getLastName();
+                    txvActivitySlidebarUserName.setText(Name);
+                    txvActivitySlidebarEmail.setText(account.getMail());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }*/
+
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -217,5 +290,9 @@ public class MainActivity extends BaseActivity {
                 });
             }
         });
+    }
+
+    private void toastMessage(String s) {
+        Toast.makeText(this,s, Toast.LENGTH_SHORT).show();
     }
 }
