@@ -1,6 +1,7 @@
 package com.gethelp.huyngh.helpmedemo;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
@@ -161,6 +162,8 @@ public class RegistrationActivity extends AppCompatActivity {
                                         .show();
                             }
                         });
+                Intent intent = new Intent(RegistrationActivity.this,LoginActivity.class);
+                startActivity(intent);
             }
         });
         dialog.setNegativeButton("CANCLE", new DialogInterface.OnClickListener() {
