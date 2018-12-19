@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends Activity {
 
-    EditText edtEmail, edtPassword;
+    EditText edtUserName, edtPassword;
     Button btnSignIn;
     LinearLayout loginLayout;
 
@@ -34,8 +34,11 @@ public class LoginActivity extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
 
+        //Thiết lập Layout
+        loginLayout = (LinearLayout) findViewById(R.id.regisLayout);
         //Thiết lập Button Sign
         btnSignIn = (Button) findViewById(R.id.btnSignIn);
+
         //Thiết lập sự kiện
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,14 +50,14 @@ public class LoginActivity extends Activity {
 
     public void handleSignIn() {
         //Thiết lập các view control
-        edtEmail = (EditText) findViewById(R.id.edtEmail);
+        edtUserName = (EditText) findViewById(R.id.edtUserName);
         edtPassword = (EditText) findViewById(R.id.edtPassword);
-        loginLayout = (LinearLayout) findViewById(R.id.regisLayout);
+
         //Thiết lâp firebase
         firebaseAuth = FirebaseAuth.getInstance();
 
         // Kiểm tra ràng buộc
-        if(TextUtils.isEmpty(edtEmail.getText().toString())){
+        if(TextUtils.isEmpty(edtUserName.getText().toString())){
 
             Snackbar.make(loginLayout, "Please enter email address", Snackbar.LENGTH_SHORT)
                     .show();
@@ -73,7 +76,7 @@ public class LoginActivity extends Activity {
             return;
         }
 
-        firebaseAuth.signInWithEmailAndPassword(edtEmail.getText().toString(),edtPassword.getText().toString())
+        firebaseAuth.signInWithEmailAndPassword(edtUserName.getText().toString(),edtPassword.getText().toString())
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
