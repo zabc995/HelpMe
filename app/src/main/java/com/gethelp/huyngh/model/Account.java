@@ -6,8 +6,8 @@ public class Account {
     String firstName;
     String lastName;
     String address;
-    Boolean Gender;
-    String Mail;
+    Boolean gender;
+    String mail;
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -42,19 +42,19 @@ public class Account {
     }
 
     public Boolean getGender() {
-        return Gender;
+        return gender;
     }
 
     public void setGender(Boolean gender) {
-        Gender = gender;
+        this.gender = gender;
     }
 
     public String getMail() {
-        return Mail;
+        return mail;
     }
 
     public void setMail(String mail) {
-        Mail = mail;
+        this.mail = mail;
     }
 
     public String getAddress() {
@@ -74,7 +74,7 @@ public class Account {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
-        Gender = gender;
-        Mail = mail;
+        this.gender = gender;
+        this.mail = mail;
     }
 }
