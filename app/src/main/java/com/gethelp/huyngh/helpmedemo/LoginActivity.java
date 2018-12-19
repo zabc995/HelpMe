@@ -14,6 +14,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginActivity extends Activity {
 
     EditText edtUserName, edtPassword;
+    TextView txvRegistration;
     Button btnSignIn;
     LinearLayout loginLayout;
 
@@ -35,10 +37,10 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
 
         //Thiết lập Layout
-        loginLayout = (LinearLayout) findViewById(R.id.regisLayout);
+        loginLayout = findViewById(R.id.regisLayout);
+        txvRegistration = findViewById(R.id.txvRegistration);
         //Thiết lập Button Sign
-        btnSignIn = (Button) findViewById(R.id.btnSignIn);
-
+        btnSignIn = findViewById(R.id.btnSignIn);
         //Thiết lập sự kiện
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,12 +48,20 @@ public class LoginActivity extends Activity {
                 handleSignIn();
             }
         });
+        //
+        txvRegistration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this,RegistrationActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void handleSignIn() {
         //Thiết lập các view control
-        edtUserName = (EditText) findViewById(R.id.edtUserName);
-        edtPassword = (EditText) findViewById(R.id.edtPassword);
+        edtUserName = findViewById(R.id.edtUserName);
+        edtPassword = findViewById(R.id.edtPassword);
 
         //Thiết lâp firebase
         firebaseAuth = FirebaseAuth.getInstance();
