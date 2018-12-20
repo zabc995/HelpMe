@@ -45,6 +45,7 @@ public class RegistrationActivity extends AppCompatActivity {
         ActionBar actionBar=getSupportActionBar();
         actionBar.setTitle("Registration");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         setContentView(R.layout.activity_registration);
 
         //Thiết lập Button Sign
@@ -56,6 +57,12 @@ public class RegistrationActivity extends AppCompatActivity {
                 handleSignUp();
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     public void handleSignUp() {
