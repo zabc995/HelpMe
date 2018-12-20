@@ -37,6 +37,7 @@ public class EditProfileActivity extends AppCompatActivity {
         ActionBar actionBar=getSupportActionBar();
         actionBar.setTitle("Edit Profile");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         setContentView(R.layout.activity_edit_profile);
 
         //Thiết lập controls
@@ -97,6 +98,12 @@ public class EditProfileActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     private void checkData(DataSnapshot dataSnapshot) {
