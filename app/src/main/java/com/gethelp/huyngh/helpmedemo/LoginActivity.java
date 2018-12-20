@@ -37,7 +37,7 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
 
         //Thiết lập Layout
-        loginLayout = findViewById(R.id.regisLayout);
+        loginLayout = findViewById(R.id.loginLayout);
         txvRegistration = findViewById(R.id.txvRegistration);
         //Thiết lập Button Sign
         btnSignIn = findViewById(R.id.btnSignIn);
